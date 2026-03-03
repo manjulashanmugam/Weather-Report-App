@@ -1,38 +1,171 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* ===== BODY BACKGROUND IMAGE ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url("./assets/bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: black;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+/* ===== BACKGROUND PARTICLES ===== */
+body::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.08;
+  animation: moveParticles 40s linear infinite;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes moveParticles {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-200px, -200px); }
+}
+
+/* ===== MAIN GLASS BOX ===== */
+.weather-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 35px;
+  border-radius: 25px;
+
+  /* Ultra Transparent Glass */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+
+  text-align: center;
+  color: #111;
+
+  animation: autoZoom 4s ease-in-out infinite;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 2;
+}
+
+/* AUTO ZOOM */
+@keyframes autoZoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* HOVER PREMIUM GLOW */
+.weather-container:hover {
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 40px #00ffff,
+    0 0 60px #ff00ff;
+
+  transform: scale(1.08);
+}
+
+/* ===== SEARCH BOX ===== */
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* INPUT */
+.search-box input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* ===== GLASSY BUTTON ===== */
+.search-box button {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  color: #111;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+/* BUTTON HOVER */
+.search-box button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 0 15px #00ffff,
+    0 0 25px #ff00ff;
+  transform: scale(1.1);
+}
+
+/* ===== WEATHER CARD ===== */
+.weather-card {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ===== ANIMATED GRADIENT TEMPERATURE ===== */
+.weather-card h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  font-weight: 700;
+
+  background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: gradientMove 5s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.weather-card p {
+  margin: 6px 0;
+  font-size: 16px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 500px) {
+  .weather-container {
+    margin: 20px;
+    padding: 25px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .search-box button {
+    width: 100%;
   }
 }
